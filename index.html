@@ -1,131 +1,499 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIVA ENTERPRISE - Premium Rubber Products Manufacturing</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DIVA ENTERPRISE - Premium Rubber Products Manufacturing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: linear-gradient(135deg, #000000 0%, #e8f4fd 50%, #f0f8ff 100%);
+      --bg-secondary: rgba(255,255,255,0.8);
+      --text-primary: #1a1a2e;
+      --text-secondary: #5a6c7d;
+      --accent-blue: #007bff;
+      --accent-orange: #ff9500;
+      --glass-bg: rgba(255,255,255,0.9);
+      --glass-border: rgba(0,123,255,0.2);
+      --shadow-soft: 0 8px 32px rgba(0,123,255,0.1);
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem; font-weight: 700;
+      background: linear-gradient(45deg, var(--accent-blue), var(--accent-orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    nav ul { display: flex; list-style: none; gap: 2rem; }
+    nav a {
+      color: var(--text-primary); text-decoration: none;
+      font-weight: 500; transition: all 0.3s ease;
+      position: relative; padding-bottom: 0.5rem;
+    }
+    nav a:hover { color: var(--accent-blue); }
+    nav a::after {
+      content: ""; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(45deg, var(--accent-blue), var(--accent-orange));
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background-image: url('bg5.jpg');
+      background-size: cover; background-position: center;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding-top: 80px;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-decoration: underline;
+      background: linear-gradient(45deg, var(--accent-blue), var(--accent-orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      max-width: 500px; margin: 0 auto;
+      color: black; font-weight: bold; line-height: 1.3;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 5%; max-width: 1400px; margin: 0 auto; }
+    h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--text-primary); }
+    h2::after {
+      content: ""; display: block; width: 80px; height: 4px;
+      background: linear-gradient(45deg, var(--accent-blue), var(--accent-orange));
+      margin: 1rem auto 0; border-radius: 2px;
+    }
+
+    /* PRODUCTS SECTION */
+    .products { padding: 8rem 5% 5rem; }
+
+    /* CATEGORY CARDS GRID */
+    .product-category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .category-card {
+      height: 280px; border-radius: 18px;
+      background-size: cover; background-position: center;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: transform 0.4s ease;
+      text-decoration: none;
+    }
+    .category-card:hover { transform: scale(1.05); }
+    .category-card .overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .category-card h3 { color: white; font-size: 2rem; letter-spacing: 1px; }
+
+    /* ============================
+       GALLERY SECTION (opens below)
+       ============================ */
+    .category-view {
+      margin-top: 3rem;
+      display: none; /* hidden by default */
+      animation: fadeUp 0.6s ease both;
+    }
+    .category-view.active { display: block; }
+
+    /* BIG BANNER with BG image */
+    .category-banner {
+      width: 100%; height: 320px;
+      border-radius: 20px;
+      background-size: cover; background-position: center;
+      display: flex; align-items: flex-end;
+      padding: 2rem 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .category-banner::before {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%);
+    }
+    .banner-text { position: relative; z-index: 1; }
+    .banner-text h2 {
+      color: white; font-size: 2.8rem; margin-bottom: 0.3rem;
+      text-align: left;
+    }
+    .banner-text h2::after { display: none; }
+    .banner-text p { color: rgba(255,255,255,0.85); font-size: 1rem; }
+
+    /* Close Button */
+    .close-gallery {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      z-index: 2; background: rgba(255,255,255,0.2);
+      border: 2px solid white; color: white;
+      font-size: 1.3rem; width: 42px; height: 42px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .close-gallery:hover { background: rgba(255,255,255,0.4); }
+
+    /* Gallery Image Grid */
+    .gallery-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-grid img {
+      width: 100%; height: 220px;
+      object-fit: cover; border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: zoom-in;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+
+    /* TEMPLATES */
+    .templates {
+      background: var(--bg-secondary); border-radius: 24px;
+      padding: 4rem; margin: 3rem auto;
+      box-shadow: var(--shadow-soft); backdrop-filter: blur(10px);
+    }
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .template-card {
+      background: white; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08); transition: all 0.4s ease;
+    }
+    .template-card:hover { transform: translateY(-12px); box-shadow: 0 20px 60px rgba(0,123,255,0.2); }
+    .template-image { height: 200px; background-size: cover; background-position: center; }
+    .template-content { padding: 1.5rem; }
+    .template-content h3 { color: var(--text-primary); margin-bottom: 0.5rem; }
+    .template-content p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      background: white; padding: 2.5rem 2rem;
+      border-radius: 20px; text-align: center;
+      box-shadow: var(--shadow-soft); transition: all 0.3s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-icon {
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, var(--accent-blue), var(--accent-orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .address-card {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff; text-align: left; padding: 2.5rem 2rem;
+      border-radius: 20px; position: relative; overflow: hidden;
+    }
+    .address-card::before {
+      content: ""; position: absolute; left: 0; top: 20px; bottom: 20px;
+      width: 4px; background: #38bdf8; border-radius: 4px;
+    }
+    .address-card h3 { margin-bottom: 12px; font-size: 20px; font-weight: 600; }
+    .address-card p { font-size: 14px; line-height: 1.7; opacity: 0.9; }
+    .address-card .contact { display: block; margin-top: 16px; font-size: 13px; opacity: 0.85; }
+
+    /* FOOTER */
+    .site-footer { background: #000; color: #fff; width: 100%; padding: 2rem 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 5%; text-align: center; }
+    .footer-links { margin-top: 0.5rem; }
+    .footer-links a { color: #25d366; text-decoration: none; font-weight: 500; }
+    .footer-links span { color: #777; margin: 0 8px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header { padding: 1rem 3%; }
+      nav ul { gap: 1rem; }
+      section { padding: 4rem 2%; }
+      .templates { padding: 3rem 2rem; margin: 2rem auto; }
+      .template-grid { grid-template-columns: 1fr; }
+      .banner-text h2 { font-size: 2rem; }
+    }
+    @media (max-width: 480px) {
+      nav ul { display: none; }
+      .hero { padding-top: 70px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">DIVA ENTERPRISE</div>
-        <nav>
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#templates">Templates</a></li>
-                <li><a href="#features">Capabilities</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <h1>DIVA ENTERPRISE</h1>
-            <p>DIVA IS ESTABLISHED COMPANY DEDICATED TO SUPPLYING HIGH-QUALITY RUBBER PARTS AND RAW MATERIALS.</p>
-        </div>
-    </section>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">DIVA ENTERPRISE</div>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#templates">Templates</a></li>
+        <li><a href="#features">Capabilities</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <section id="products" class="products">
-        <h2>Featured Products</h2>
-        <div class="carousel-wrapper">
-            <div class="carousel">
-                <div class="card"><img src="gaskets.jpg" alt="Gaskets"></div>
-                <div class="card"><img src="r tubes.jpg" alt="Rubber Tubes"></div>
-                <div class="card"><img src="rub pro.jpg" alt="Rubber Profiles"></div>
-                <div class="card"><img src="s tube.jpg" alt="Sponge Tubes"></div>
-            </div>
-        </div>
-    </section>
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>DIVA ENTERPRISE</h1>
+      <p>DIVA IS AN ESTABLISHED COMPANY DEDICATED TO SUPPLYING HIGH-QUALITY RUBBER PARTS AND RAW MATERIALS.</p>
+    </div>
+  </section>
 
-    <section id="templates" class="templates">
-        <h2>Templates & Catalog</h2>
-        <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem;">Browse our standard rubber product templates. Custom designs available for your specifications.</p>
-        <div class="template-grid">
-            <div class="template-card">
-                <div class="template-image" style="background-image: url('rub pro.jpg')"></div>
-                <div class="template-content">
-                    <h3>RUBBER PROFILES</h3>
-                    <p>Standard and custom RUBBER PROFILES in various durometers and compounds.</p>
-                </div>
-            </div>
-            <div class="template-card">
-                <div class="template-image" style="background-image: url('gaskets.jpg')"></div>
-                <div class="template-content">
-                    <h3>Gaskets</h3>
-                    <p>Precision gaskets for automotive and industrial sealing.</p>
-                </div>
-            </div>
-            <div class="template-card">
-                <div class="template-image" style="background-image: url('r tubes.jpg')"></div>
-                <div class="template-content">
-                    <h3>RUBBER TUBES</h3>
-                    <p>Extruded rubber hoses with reinforcement options.</p>
-                </div>
-            </div>
-            <div class="template-card">
-                <div class="template-image" style="background-image: url('s tube.jpg')"></div>
-                <div class="template-content">
-                    <h3>SPONGE TUBES</h3>
-                    <p>Vibration isolation components for machinery.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- PRODUCTS -->
+  <section id="products" class="products">
+    <h2>Featured Products</h2>
 
-    <section id="features">
-        <h2>Manufacturing Capabilities</h2>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3>Hoses & Profiles</h3>
-                <p>Hoses and profiles for rubbers and sponge like RM-EPDM, NR, NBR.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h3>Extrusion Capabilities</h3>
-                <p>Extrusion of EPDM, NBR, NR and sponge rubber profiles.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔬</div>
-                <h3>Industrial Applications</h3>
-                <p>Rubber and plastic profiles for Automobile sector, Railways, Construction and Shipping industries.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📏</div>
-                <h3>Quality Assurance</h3>
-                <p>ISO 9001 certified with full material testing and traceability.</p>
-            </div>
-            <div class="address-card">
-                <h3>Corporate Office</h3>
-                <p>
-                    Diva Enterprise Pvt. Ltd.<br>
-                    83,Block B, Sector 86<br>
-                    Gurgaon, Haryana – 122004<br>
-                    India
-                </p>
-                <span class="contact">
-                    📞 +91 9220640764<br>
-                    ✉️ divaenterpriseauto@gmail.com
-                </span>
-            </div>
-        </div>
-    </section>
+    <!-- CATEGORY CARDS -->
+    <div class="product-category-grid">
+      <div class="category-card" onclick="openCategory('automotive')"
+           style="background-image: url('iron-steel-material-storage.jpg')">
+        <div class="overlay"><h3>Automotive</h3></div>
+      </div>
+      <div class="category-card" onclick="openCategory('architecture')"
+           style="background-image: url('arch-bg.jpg')">
+        <div class="overlay"><h3>Architecture</h3></div>
+      </div>
+      <div class="category-card" onclick="openCategory('railway')"
+           style="background-image: url('rail-bg.jpg')">
+        <div class="overlay"><h3>Railway</h3></div>
+      </div>
+    </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <span>© 2026 DIVA ENTERPRISES. All rights reserved. Design by Virat</span>
-            <div class="footer-links">
-                 <a href="mailto:divaenterpriseauto@gmail.com" target="_blank"> Email</a>
-                <span>|</span>
-                <a href="https://wa.me/9220640764"target="_blank"> Whatsapp</a>
-            </div>
+    <!-- GALLERY VIEW (opens below cards on click) -->
+    <div id="category-view" class="category-view">
+
+      <!-- Banner with unique BG per category -->
+      <div id="category-banner" class="category-banner">
+        <button class="close-gallery" onclick="closeCategory()">✕</button>
+        <div class="banner-text">
+          <h2 id="category-title"></h2>
+          <p id="category-subtitle"></p>
         </div>
-    </footer>
-    <script src="/script.js"></script>
+      </div>
+
+      <!-- Gallery Images Grid -->
+      <div class="gallery-grid" id="gallery-grid"></div>
+
+    </div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section id="templates" class="templates">
+    <h2>Templates &amp; Catalog</h2>
+    <p style="text-align:center;color:var(--text-secondary);max-width:800px;margin:0 auto 3rem;">
+      Browse our standard rubber product templates. Custom designs available for your specifications.
+    </p>
+    <div class="template-grid">
+      <div class="template-card">
+        <div class="template-image" style="background-image:url('rub pro.jpg')"></div>
+        <div class="template-content">
+          <h3>RUBBER PROFILES</h3>
+          <p>Standard and custom rubber profiles in various durometers and compounds.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-image" style="background-image:url('gaskets.jpg')"></div>
+        <div class="template-content">
+          <h3>Gaskets</h3>
+          <p>Precision gaskets for automotive and industrial sealing.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-image" style="background-image:url('r tubes.jpg')"></div>
+        <div class="template-content">
+          <h3>RUBBER TUBES</h3>
+          <p>Extruded rubber hoses with reinforcement options.</p>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="template-image" style="background-image:url('s tube.jpg')"></div>
+        <div class="template-content">
+          <h3>SPONGE TUBES</h3>
+          <p>Vibration isolation components for machinery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section id="features">
+    <h2>Manufacturing Capabilities</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Hoses &amp; Profiles</h3>
+        <p>Hoses and profiles for rubbers and sponge like RM-EPDM, NR, NBR.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Extrusion Capabilities</h3>
+        <p>Extrusion of EPDM, NBR, NR and sponge rubber profiles.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3>Industrial Applications</h3>
+        <p>Rubber and plastic profiles for Automobile, Railways, Construction and Shipping industries.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📏</div>
+        <h3>Quality Assurance</h3>
+        <p>ISO 9001 certified with full material testing and traceability.</p>
+      </div>
+      <div class="address-card">
+        <h3>Corporate Office</h3>
+        <p>
+          Diva Enterprise Pvt. Ltd.<br>
+          83, Block B, Sector 86<br>
+          Gurgaon, Haryana – 122004<br>
+          India
+        </p>
+        <span class="contact">
+          📞 +91 9220640764<br>
+          ✉️ divaenterpriseauto@gmail.com
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 DIVA ENTERPRISES. All rights reserved. Design by Virat</span>
+      <div class="footer-links">
+        <a href="mailto:divaenterpriseauto@gmail.com" target="_blank">Email</a>
+        <span>|</span>
+        <a href="https://wa.me/9220640764" target="_blank">Whatsapp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Smooth Scrolling ───────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href'))
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ─── Gallery Data (replace image names with your actual files) ──
+    const categoryData = {
+      automotive: {
+        title: "Automotive Products",
+        subtitle: "Premium rubber & plastic parts for passenger, commercial & two-wheelers",
+        bg: "iron-steel-material-storage.jpg",       // BG banner image
+        images: [
+          "iron-steel-material-storage.jpg",         // replace with your auto images
+          "gaskets.jpg",
+          "r tubes.jpg",
+          "s tube.jpg",
+          "rub pro.jpg"
+        ]
+      },
+      architecture: {
+        title: "Architecture Products",
+        subtitle: "Sealing solutions & rubber profiles for construction & infrastructure",
+        bg: "arch-bg.jpg",                           // BG banner image
+        images: [
+          "arch-bg.jpg",                             // replace with your arch images
+          "gaskets.jpg",
+          "rub pro.jpg",
+          "r tubes.jpg"
+        ]
+      },
+      railway: {
+        title: "Railway Products",
+        subtitle: "Engineered rubber components for rail & metro applications",
+        bg: "rail-bg.jpg",                           // BG banner image
+        images: [
+          "rail-bg.jpg",                             // replace with your railway images
+          "s tube.jpg",
+          "r tubes.jpg",
+          "gaskets.jpg"
+        ]
+      }
+    };
+
+    // ─── Open Gallery ───────────────────────────────────────────────
+    function openCategory(type) {
+      const data    = categoryData[type];
+      const view    = document.getElementById("category-view");
+      const banner  = document.getElementById("category-banner");
+      const title   = document.getElementById("category-title");
+      const subtitle= document.getElementById("category-subtitle");
+      const grid    = document.getElementById("gallery-grid");
+
+      // Set banner background
+      banner.style.backgroundImage = `url('${data.bg}')`;
+
+      // Set texts
+      title.innerText    = data.title;
+      subtitle.innerText = data.subtitle;
+
+      // Clear and populate gallery images
+      grid.innerHTML = "";
+      data.images.forEach(imgSrc => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = type + " product";
+        grid.appendChild(img);
+      });
+
+      // Show gallery
+      view.classList.add("active");
+
+      // Smooth scroll to gallery
+      setTimeout(() => {
+        view.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+
+    // ─── Close Gallery ──────────────────────────────────────────────
+    function closeCategory() {
+      const view = document.getElementById("category-view");
+      view.classList.remove("active");
+      document.getElementById("products")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
 
 </body>
 </html>
-
