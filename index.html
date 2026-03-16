@@ -247,9 +247,19 @@
       .template-grid { grid-template-columns: 1fr; }
       .banner-text h2 { font-size: 2rem; }
     }
-    @media (max-width: 480px) {
-      nav ul { display: none; }
-      .hero { padding-top: 70px; }
+    
+      @media (max-width: 480px) {
+  nav ul {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
     }
   </style>
 </head>
