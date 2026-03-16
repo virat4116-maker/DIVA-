@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg-primary: linear-gradient(135deg, #000000 0%, #e8f4fd 50%, #f0f8ff 100%);
+      --bg-primary: linear-gradient(135deg, #fcf2f2 0%, #e8f4fd 50%, #f0f8ff 100%);
       --bg-secondary: rgba(255,255,255,0.8);
       --text-primary: #1a1a2e;
       --text-secondary: #5a6c7d;
@@ -22,7 +22,7 @@
 
     body {
       font-family: "Poppins", sans-serif;
-      background: var(--bg-primary);
+      background: var(--bg-primary);                                  
       color: var(--text-primary);
       overflow-x: hidden;
       line-height: 1.6;
@@ -287,14 +287,19 @@
         <div class="overlay"><h3>Automotive</h3></div>
       </div>
       <div class="category-card" onclick="openCategory('architecture')"
-           style="background-image: url('arch-bg.jpg')">
+           style="background-image: url('archi\ gg.jpg')">
         <div class="overlay"><h3>Architecture</h3></div>
       </div>
       <div class="category-card" onclick="openCategory('railway')"
-           style="background-image: url('rail-bg.jpg')">
+           style="background-image: url('rail\ bg.jpg')">
         <div class="overlay"><h3>Railway</h3></div>
       </div>
-    </div>
+      <div class="category-card" onclick="openCategory('silicone')"
+           style="background-image: url('sili\ bg.jpg')">
+        <div class="overlay"><h3>Silicone</h3></div>
+      </div>
+    </div> 
+
 
     <!-- GALLERY VIEW (opens below cards on click) -->
     <div id="category-view" class="category-view">
@@ -309,7 +314,7 @@
       </div>
 
       <!-- Gallery Images Grid -->
-      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="gallery-grid" id="gallery-grid"></div>'  '
 
     </div>
   </section>
@@ -421,35 +426,66 @@
         subtitle: "Premium rubber & plastic parts for passenger, commercial & two-wheelers",
         bg: "iron-steel-material-storage.jpg",       // BG banner image
         images: [
-          "iron-steel-material-storage.jpg",         // replace with your auto images
-          "gaskets.jpg",
-          "r tubes.jpg",
-          "s tube.jpg",
-          "rub pro.jpg"
+          "auto1.jpeg",
+          "auto 2.jpeg",
+          "auto3.jpeg",
+          "auo 4.jpeg",
+          "a5.jpeg",
+          "a6.jpeg",
+          "a7.jpeg",
+          "a8.jpeg",
+          "a9.jpeg"
+
         ]
       },
       architecture: {
         title: "Architecture Products",
         subtitle: "Sealing solutions & rubber profiles for construction & infrastructure",
-        bg: "arch-bg.jpg",                           // BG banner image
+        bg: "archi gg.jpg",                           // BG banner image
         images: [
-          "arch-bg.jpg",                             // replace with your arch images
-          "gaskets.jpg",
-          "rub pro.jpg",
-          "r tubes.jpg"
+          "archi 1.jpeg",
+          "archi 2.jpeg",
+          "archi 3.jpeg",
+          "archi 4.jpeg",
+          "archi 5.jpeg",
+          "archi 6.jpeg",
+          "archi 7.jpeg",
+          "ar8.jpeg",
+          "ar9.jpeg"
         ]
       },
       railway: {
         title: "Railway Products",
         subtitle: "Engineered rubber components for rail & metro applications",
-        bg: "rail-bg.jpg",                           // BG banner image
+        bg: "rail bg.jpg",                           // BG banner image
         images: [
-          "rail-bg.jpg",                             // replace with your railway images
-          "s tube.jpg",
-          "r tubes.jpg",
-          "gaskets.jpg"
+          "rail1.jpeg",
+          "rail 2.jpeg",
+          "rail 3.jpeg",
+          "/r1.jpeg",
+          "/r2.jpeg",
+          "/r3.jpeg",
+          "/r4.jpeg",
+          "/r5.jpeg"
+        ]
+      },
+      silicone: {
+        title: "Silicone Products",
+        subtitle: "Engineered rubber components",
+        bg: "sili bg.jpg",                           // BG banner image
+        images: [
+          "/s1.jpeg",
+          "/s2.jpeg",
+          "/s3.jpeg",
+          "/s4.jpeg",
+          "/s5.jpeg",
+          "/s6.jpeg",
+          "/s7.jpeg",
+          "/s8.jpeg"
+          
         ]
       }
+      
     };
 
     // ─── Open Gallery ───────────────────────────────────────────────
